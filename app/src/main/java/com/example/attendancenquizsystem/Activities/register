@@ -1,0 +1,77 @@
+package com.example.attendancenquizsystem.Activities;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.attendancenquizsystem.Presenter.RegisterPresenter;
+import com.example.attendancenquizsystem.R;
+import com.example.attendancenquizsystem.View.RegisterView;
+
+public class register extends AppCompatActivity implements RegisterView {
+    EditText name,password,email,ID,confirmpassword;
+    TextView sign;
+    RegisterPresenter mypresenter;
+    RadioGroup role;
+    RadioButton button;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+        role=findViewById(R.id.radioGroup);
+        name=findViewById(R.id.register_name);
+        password=findViewById(R.id.register_password);
+        email=findViewById(R.id.register_email);
+        ID=findViewById(R.id.ID);
+        confirmpassword=findViewById(R.id.register_password1);
+        sign=findViewById(R.id.textView2);
+        mypresenter=new RegisterPresenter(this,this);
+
+    }
+    public void createaccount(View v){
+        Log.d("test", "createaccount: before if");
+        if(((!TextUtils.isEmpty(email.getText().toString())&&!TextUtils.isEmpty(password.getText().toString())&&!TextUtils.isEmpty(ID.getText().toString())&&!TextUtils.isEmpty(confirmpassword.getText().toString())))) {
+            //Log.d("passwords", "createaccount: "password.getText().toString()+"\n"+confirmpassword.getText().toString());
+            if (password.getText().toString().equals(confirmpassword.getText().toString())) {
+                Log.d("test1", "createaccount: in if");
+                int id=role.getCheckedRadioButtonId();
+                button=findViewById(id);
+                mypresenter.signup(name.getText().toString(), email.getText().toString(), password.getText().toString(), ID.getText().toString(),button.getText().toString());
+            }
+
+
+        }
+    }
+
+
+    @Override
+    public void signsucessful(String Role) {
+        Intent go;
+        if(Role.equals("Student")){
+            go= new Intent(this,StudentHome.class);
+        }
+        else{
+            go= new Intent(this,TeacherHome.class);
+        }
+        startActivity(go);
+        finish();
+    }
+
+    @Override
+    public void signfailed() {
+        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+    }
+    public void movetologin(View v){
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+}

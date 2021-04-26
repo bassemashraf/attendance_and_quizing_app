@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="logo">#E6FD750B</color>
+    <color name="background">#63E7E3E3</color>
+    <color name="buttoncolor">#ffffff</color>
+    <color name="gradintend">#D85F05</color>
+    <color name="gradintstart">#C4FD750B</color>
+</resources>

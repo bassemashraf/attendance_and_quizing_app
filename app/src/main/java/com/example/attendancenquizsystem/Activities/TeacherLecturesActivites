@@ -1,0 +1,50 @@
+package com.example.attendancenquizsystem.Activities;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import com.example.attendancenquizsystem.Adapters.lectureadapter;
+import com.example.attendancenquizsystem.Model.Lecture;
+import com.example.attendancenquizsystem.Presenter.TeacherLecturesPresenter;
+import com.example.attendancenquizsystem.R;
+import com.example.attendancenquizsystem.View.TeacherLecturesView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+
+public class TeacherLectures extends AppCompatActivity implements TeacherLecturesView {
+    RecyclerView recycler;
+    lectureadapter myadapter;
+    TeacherLecturesPresenter presenter;
+    FloatingActionButton addlecture;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_teacher_lectures);
+        recycler=findViewById(R.id.recycler);
+        presenter=new TeacherLecturesPresenter(this,this);
+        presenter.retrivelectures(getIntent().getStringExtra("Subject"));
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        addlecture=findViewById(R.id.addlecture);
+        final Intent intent= new Intent(this,AddLecture.class);
+        intent.putExtra("Subject",getIntent().getStringExtra("Subject"));
+        addlecture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void getData(ArrayList<Lecture> lectures) {
+        myadapter= new lectureadapter(lectures,getIntent().getStringExtra("Subject"));
+        recycler.setAdapter(myadapter);
+    }
+}

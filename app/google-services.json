@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "733246135238",
+    "firebase_url": "https://attendancenquizsystem.firebaseio.com",
+    "project_id": "attendancenquizsystem",
+    "storage_bucket": "attendancenquizsystem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733246135238:android:e75c0e2586f37b710c70c7",
+        "android_client_info": {
+          "package_name": "com.example.attendancenquizsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733246135238-14cpcqscj6r0t7gmd9v4h8579m8s4k4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.attendancenquizsystem",
+            "certificate_hash": "ce76f9b9988aa68dabdfb621ff9ea295eb460ee0"
+          }
+        },
+        {
+          "client_id": "733246135238-vtqf1dicst9p7mqelfibdtsj8dmehlq0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoNXgch5BhpeKpTwLL4ICU0Qa9c3QNb-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733246135238-vtqf1dicst9p7mqelfibdtsj8dmehlq0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

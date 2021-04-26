@@ -1,0 +1,59 @@
+package com.example.attendancenquizsystem.Presenter;
+
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+
+import com.example.attendancenquizsystem.View.RegisterView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+
+public class RegisterPresenter {
+    private LoginPresenter login;
+    private RegisterView myview;
+    private Context cx;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
+    public RegisterPresenter (RegisterView view, Context cx){
+        myview=view;
+        this.cx=cx;
+        mAuth = FirebaseAuth.getInstance();
+    }
+    public void signup(final String name, final String email, String password, final String ID,final String role){
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+                    String id= user.getUid();
+                    mDatabase= FirebaseDatabase.getInstance().getReference().child(id);
+                    HashMap<String,String> usermap= new HashMap<>();
+                    usermap.put("Name",name);
+                    usermap.put("Email",email);
+                    usermap.put("ID",ID);
+                    usermap.put("Role",role);
+                    mDatabase.setValue(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                myview.signsucessful(role);
+                            }
+                        }
+                    });
+
+                }
+                else{
+                    myview.signfailed();
+                }
+            }
+        });
+    }
+}

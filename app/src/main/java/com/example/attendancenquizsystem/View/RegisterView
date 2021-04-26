@@ -1,0 +1,6 @@
+package com.example.attendancenquizsystem.View;
+
+public interface RegisterView {
+    void signsucessful(String Role);
+    void signfailed();
+}
